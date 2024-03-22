@@ -18,7 +18,12 @@ namespace StackOverflow.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> AllQuestion()
+        {
+            return View();
+        }
+
+        public IActionResult AskQuestion()
         {
             return View();
         }
