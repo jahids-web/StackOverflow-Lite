@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+
 
 namespace StackOverflow.Base.DataContext
 {
-    public class ApplicationDbContext(DbContextOptions options) : base(Options)
+    public class ApplicationDbContext : DbContext
     {
-
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+           : base(options)
+        {
+        }
     }
 }
