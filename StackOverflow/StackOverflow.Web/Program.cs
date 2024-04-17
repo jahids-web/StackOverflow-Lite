@@ -1,7 +1,11 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using StackOverflow.Base;
 using StackOverflow.Base.DataContext;
-
+using System.Reflection;
+using StackOverflow.Membership;
 
 namespace StackOverflow.Web
 {
@@ -13,6 +17,8 @@ namespace StackOverflow.Web
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("StackOverflowDatabase");
+            var assemblyName = Assembly.GetExecutingAssembly().FullName!;
+
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
@@ -25,6 +31,15 @@ namespace StackOverflow.Web
 
             var app = builder.Build();
 
+            //Autofac Configuration
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+            builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+            {
+                containerBuilder.RegisterModule(new WebModule());
+                containerBuilder.RegisterModule(new BaseModule( connectionString, assemblyName));
+                containerBuilder.RegisterModule(new MembershipModule());
+            });
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -33,7 +48,6 @@ namespace StackOverflow.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
