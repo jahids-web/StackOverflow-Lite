@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Autofac;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using StackOverflow.Base.DataContext;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +10,32 @@ using System.Threading.Tasks;
 
 namespace StackOverflow.Base
 {
-    public class BaseModule
+    public class BaseModule : Module
     {
+        private readonly string _connectionString;
+        private readonly string _migrationAssemblyName;
+
+        public BaseModule(string connectionString,
+            string migrationAssemblyName)
+        {
+            _connectionString = connectionString;
+            _migrationAssemblyName = migrationAssemblyName;
+        }
+
+        protected override void Load(ContainerBuilder builder)
+        {
+
+            builder.RegisterType<ApplicationDbContext>().As<IApplicationDbContext>()
+                .WithParameter("connectionString", _connectionString)
+                .WithParameter("migrationAssemblyName", _migrationAssemblyName)
+                .InstancePerLifetimeScope();
+
+            //builder.RegisterType<UnitOfWork>().As<IUnitOfWork>()
+            //    .InstancePerLifetimeScope();
+
+           
+
+            base.Load(builder);
+        }
     }
 }
