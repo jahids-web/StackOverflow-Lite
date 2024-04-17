@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using StackOverflow.Base.Features.Questions.Entities;
 
 namespace StackOverflow.Base.DataContext
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser> , IApplicationDbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser> 
     {
         private readonly string? _connectionString;
         private readonly string? _migrationAssemblyName;
@@ -26,6 +26,8 @@ namespace StackOverflow.Base.DataContext
             base.OnModelCreating(builder);
 
         }
+
+        public DbSet<Question> Questions { get; set; }
     }
 }
 
