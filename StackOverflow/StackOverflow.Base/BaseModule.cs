@@ -1,7 +1,10 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackOverflow.Base.Data;
 using StackOverflow.Base.DataContext;
+using StackOverflow.Base.Features.Questions.Domain;
+using StackOverflow.Base.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +24,7 @@ namespace StackOverflow.Base
             _connectionString = connectionString;
             _migrationAssemblyName = migrationAssemblyName;
         }
-
+        
         protected override void Load(ContainerBuilder builder)
         {
 
@@ -30,12 +33,18 @@ namespace StackOverflow.Base
                 .WithParameter("migrationAssemblyName", _migrationAssemblyName)
                 .InstancePerLifetimeScope();
 
-            //builder.RegisterType<UnitOfWork>().As<IUnitOfWork>()
-            //    .InstancePerLifetimeScope();
-
-           
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>()
+                .InstancePerLifetimeScope();
+            
+            builder.RegisterType<QuestionRepository>().As<IQuestionRepository>()
+                .InstancePerLifetimeScope(); 
+            
+            builder.RegisterType<QuestionService>().As<IQuestionService>()
+                .InstancePerLifetimeScope();
 
             base.Load(builder);
         }
+
+       
     }
 }
