@@ -13,9 +13,6 @@ namespace StackOverflow.Base.Features.Questions.Entities
         public int Id { get; set; }
 
         [Required]
-        public string? QuestionId { get; set; }
-
-        [Required]
         public string? QuestionTitle { get; set; }
 
         [Required]
