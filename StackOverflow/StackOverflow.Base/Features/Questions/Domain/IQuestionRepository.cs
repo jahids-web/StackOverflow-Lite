@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using StackOverflow.Base.Features.Questions.Entities;
+using StackOverflow.Base.Features.Questions.ViewModels;
 
 namespace StackOverflow.Base.Features.Questions.Domain
 {
     public interface IQuestionRepository
     {
+        public Task<Question> Insert(Question model);
     }
 }
