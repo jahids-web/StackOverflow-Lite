@@ -1,4 +1,4 @@
-﻿
+﻿@model StackOverflow.Base.Features.Questions.ViewModels.InsertQuestionVM;
 @{
     ViewData["Title"] = "AskQuestion";
     Layout = "~/Views/Shared/_AskQuestionLayout.cshtml";
@@ -54,13 +54,13 @@
     <div class="col-lg-8">
         <div class="card card-item">
             <form class="card-body" novalidate role="form" method="post"
-                  asp-area="" asp-controller="Home" asp-action="AskQuestion" asp-antiforgery="true">
+                  asp-area="Home" asp-controller="Home" asp-action="AskQuestion" asp-antiforgery="true">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="input-box">
-                    <label @* asp-for="QuestionTitle" *@ class="fs-14 text-black fw-medium mb-0">Question Title</label>
+                    <label asp-for="QuestionTitle"  class="fs-14 text-black fw-medium mb-0">Question Title</label>
                     <p class="fs-13 pb-3 lh-20">Be specific and imagine you’re asking a question to another person</p>
                     <div class="form-group">
-                        <input @* asp-for="QuestionTitle" *@ type="text" class="form-control form--control" name="QuestionTitle"
+                        <input asp-for="QuestionTitle" type="text" class="form-control form--control" name="QuestionTitle"
                                placeholder="e.g. Is there an R function for finding the index of an element in a vector?">
                     </div>
                 </div><!-- end input-box -->
@@ -77,11 +77,11 @@
                 </div><!-- end input-box -->
 
                 <div class="input-box">
-                    <label class="fs-14 text-black fw-medium mb-0" @* asp-for="QuestionBody" *@>Question Details</label>
+                    <label class="fs-14 text-black fw-medium mb-0" asp-for="QuestionBody">Question Details</label>
                     <p class="fs-13 pb-3 lh-20">Include all the information someone would need to answer your question</p>
                     <div class="form-group">
-                        @* <textarea class="form-control form--control user-text-editor" rows="10" cols="40"></textarea> *@
-                        <textarea @* asp-for="QuestionBody" *@ name="QuestionBody" class="form-control form--control user-text-editor" rows="10" cols="40" placeholder="Question Body" id="exampleFormControlTextarea1"></textarea>
+
+                        <textarea asp-for="QuestionBody" name="QuestionBody" class="form-control form--control user-text-editor" rows="10" cols="40" placeholder="Question Body" id="exampleFormControlTextarea1"></textarea>
                         <div class="d-flex align-items-center pt-2">
                             <div class="mr-3">
                                 ``` <code class="badge bg-gray border border-gray text-gray">code</code> ```
