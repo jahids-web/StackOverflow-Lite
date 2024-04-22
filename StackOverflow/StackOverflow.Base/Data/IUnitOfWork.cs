@@ -10,5 +10,7 @@ namespace StackOverflow.Base.Data
     public interface IUnitOfWork
     {
        public IQuestionRepository QuestionRepository { get; }
+
+       Task<bool> SaveChangesAsync();
     }
 }
