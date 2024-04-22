@@ -5,11 +5,6 @@ using StackOverflow.Base.Data;
 using StackOverflow.Base.DataContext;
 using StackOverflow.Base.Features.Questions.Domain;
 using StackOverflow.Base.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StackOverflow.Base
 {
@@ -45,6 +40,11 @@ namespace StackOverflow.Base
             base.Load(builder);
         }
 
-       
+        public static void Dependency(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IQuestionService, QuestionService>();
+
+        }
+
     }
 }
