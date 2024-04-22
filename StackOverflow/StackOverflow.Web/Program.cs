@@ -6,6 +6,11 @@ using StackOverflow.Base;
 using StackOverflow.Base.DataContext;
 using System.Reflection;
 using StackOverflow.Membership;
+using FluentAssertions.Common;
+using StackOverflow.Base.Services;
+using Autofac.Core;
+using StackOverflow.Base.Features.Questions.Domain;
+using StackOverflow.Base.Data;
 
 namespace StackOverflow.Web
 {
@@ -14,6 +19,13 @@ namespace StackOverflow.Web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            //All Dependencys
+            builder.Services.AddControllers();
+            builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
+            builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddTransient<IQuestionService, QuestionService>();
+            builder.Services.AddHttpContextAccessor();
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("StackOverflowDatabase");
@@ -28,15 +40,16 @@ namespace StackOverflow.Web
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
             var app = builder.Build();
+
+         
 
             //Autofac Configuration
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
             {
                 containerBuilder.RegisterModule(new WebModule());
-                containerBuilder.RegisterModule(new BaseModule( connectionString, assemblyName));
+                containerBuilder.RegisterModule(new BaseModule(connectionString, assemblyName));
                 containerBuilder.RegisterModule(new MembershipModule());
             });
 
@@ -65,5 +78,7 @@ namespace StackOverflow.Web
 
             app.Run();
         }
+
+        
     }
 }
