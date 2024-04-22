@@ -1,4 +1,5 @@
-﻿using StackOverflow.Base.DataContext;
+﻿using StackOverflow.Base.Data;
+using StackOverflow.Base.DataContext;
 using StackOverflow.Base.Features.Questions.Entities;
 using StackOverflow.Base.Features.Questions.ViewModels;
 using System;
@@ -9,21 +10,13 @@ using System.Threading.Tasks;
 
 namespace StackOverflow.Base.Features.Questions.Domain
 {
-    public class QuestionRepository : IQuestionRepository
+    public class QuestionRepository : RepositoryBase<Question>, IQuestionRepository
     {
-
-        private readonly ApplicationDbContext _context;
-        public QuestionRepository(ApplicationDbContext context) 
-        {
-            _context = context;
+        public QuestionRepository(ApplicationDbContext context) : base(context)
+        { 
+        
         }
+     
 
-      
-        public async Task<Question> Insert(Question model)
-        {
-            await _context.Questions.AddAsync(model);
-            await _context.SaveChangesAsync();
-            return model;
-        }
     }
 }
