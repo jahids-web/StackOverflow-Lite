@@ -1,4 +1,4 @@
-﻿@* @model IEnumerable<Dislab.Base.Features.Questions.ViewModels.GetAllQuiestionsVM>; *@
+﻿@model IEnumerable<StackOverflow.Base.Features.Questions.Entities>;
 @{
     ViewData["Title"] = "AllQuestion";
     Layout = "~/Views/Shared/_AllQuestionLayout.cshtml";
@@ -18,8 +18,8 @@
         </div>
     </div><!-- end filters -->
     <div class="questions-snippet border-top border-top-gray">
-       @*  @foreach (var item in Model)
-        { *@
+        @foreach (var item in Model)
+        {
             <div class="media media-card rounded-0 shadow-none mb-0 bg-transparent p-3 border-bottom border-bottom-gray">
                 <div class="votes text-center votes-2">
                     <div class="vote-block">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="media-body">
-                 @*    <h5 class="mb-2 fw-medium"><a asp-area="" asp-controller="Home" asp-action="QuestionDetails" asp-route-id="@item.Id">@item.QuestionTitle</a> </h5>
+                    <h5 class="mb-2 fw-medium"><a asp-area="" asp-controller="Home" asp-action="QuestionDetails" asp-route-id="@item.Id">@item.QuestionTitle</a> </h5>
                     @if (item.QuestionBody?.Length > 120)
                     {
                         <p class="mb-2 truncate lh-20 fs-15">@item.QuestionBody.Remove(120)</p>
@@ -44,7 +44,7 @@
                     else
                     {
                         <p class="mb-2 truncate lh-20 fs-15">@item.QuestionBody</p>
-                    } *@
+                    }
                     <div class="tags">
                         <a href="#" class="tag-link">javascript</a>
                         <a href="#" class="tag-link">bootstrap-4</a>
