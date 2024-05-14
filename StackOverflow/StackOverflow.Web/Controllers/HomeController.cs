@@ -27,7 +27,8 @@ namespace StackOverflow.Web.Controllers
 
         public async Task<IActionResult> AllQuestion()
         {
-            return View();
+            var data = await _questionService.GetAllFEAsync();
+            return View(data);
         }
 
         public IActionResult AskQuestion()
