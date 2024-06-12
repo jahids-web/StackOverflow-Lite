@@ -13,7 +13,7 @@ namespace StackOverflow.Base.Services
         public Task<bool> InsertFEAsync(InsertQuestionVM model);
         public Task<string> UpdateFEAsync(InsertQuestionVM model);
         public Task<long> DeleteFEAsync(long id);
-        public Task<IEnumerable<InsertQuestionVM>> GetAllFEAsync();
+        public Task<IEnumerable<Question>> GetAllFEAsync();
         public Task<InsertQuestionVM> GetQuestionByFEIdAsync(long id);
     }
 }

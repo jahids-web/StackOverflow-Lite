@@ -45,10 +45,11 @@ namespace StackOverflow.Base.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<InsertQuestionVM>> GetAllFEAsync()
+        public async Task<IEnumerable<Question>> GetAllFEAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.QuestionRepository.GetAllAsync();
         }
+
 
         public Task<InsertQuestionVM> GetQuestionByFEIdAsync(long id)
         {
